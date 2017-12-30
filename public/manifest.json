@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "buy_crypto",
+  "name": "Buy and Sell Crypto Currency",
   "icons": [
     {
       "src": "favicon.ico",

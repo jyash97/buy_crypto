@@ -38,7 +38,7 @@ class Home extends React.Component {
         this.state.initialPrice + this.state.prices[option] * quantity;
       let b = this.state.holdings;
       if (b[option] >= quantity) {
-        b[option] = (b[option] || 0) - parseFloat(quantity);
+        b[option] = (b[option] || 0) - parseFloat(quantity).toPrecision(2);
         this.setState({
           initialPrice: gain,
           holdings: b
@@ -57,7 +57,7 @@ class Home extends React.Component {
         this.state.initialPrice - this.state.prices[option] * quantity;
       let a = this.state.holdings;
       if (left > 0) {
-        a[option] = (a[option] || 0) + parseFloat(quantity);
+        a[option] = (a[option] || 0) + parseFloat(quantity).toPrecision(2);
         this.setState({
           initialPrice: left,
           holdings: a

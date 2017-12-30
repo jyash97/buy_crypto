@@ -54,7 +54,7 @@ class Transaction extends React.Component {
           ))}
         </select>
         <input
-          type="text"
+          type="number"
           value={this.state.valueText}
           placeholder={`${this.props.type} Coins (Fill a Number)`}
           onChange={event => this.setState({ valueText: event.target.value })}
