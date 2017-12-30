@@ -3,13 +3,14 @@ import React from 'react';
 class DisplayData extends React.Component {
   render() {
     return (
-      <React.Fragment>
-        {Object.keys(this.props).map(name => (
+      <div>
+        <h4>{this.props.title}</h4>
+        {Object.keys(this.props.data).map(name => (
           <li key={name}>
-            {name} <span>{this.props[name]}</span>
+            {name} <span>{this.props.data[name]}</span>
           </li>
         ))}
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 
 import DisplayData from './DisplayData';
-import BuyCoin from './BuyCoin';
-import SellCoin from './SellCoin';
+import Transaction from './Transaction';
+
+import './style.css';
 
 class Home extends React.Component {
   constructor() {
@@ -13,7 +14,8 @@ class Home extends React.Component {
       holdings: {}
     };
     this.handleRequest = this.handleRequest.bind(this);
-    this.handleValue = this.handleValue.bind(this);
+    this.handleBuy = this.handleBuy.bind(this);
+    this.handleSell = this.handleSell.bind(this);
   }
 
   componentWillMount() {
@@ -21,15 +23,17 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = setInterval(() => this.handleRequest(), 300000);
+    this.timer = setInterval(() => this.handleRequest(), 60000);
   }
 
   componentWillUnmount() {
     clearInterval(this.timer);
   }
 
-  handleValue(option, quantity = 1, event) {
-    if (event.target.name === 'sell') {
+  handleSell(option, quantity) {
+    if (!quantity) {
+      alert('Please fill a value');
+    } else {
       const gain =
         this.state.initialPrice + this.state.prices[option] * quantity;
       let b = this.state.holdings;
@@ -42,6 +46,12 @@ class Home extends React.Component {
       } else {
         alert('Quantity to be sold is greater than the holdings');
       }
+    }
+  }
+
+  handleBuy(option, quantity) {
+    if (!quantity) {
+      alert('Please fill a value');
     } else {
       const left =
         this.state.initialPrice - this.state.prices[option] * quantity;
@@ -76,15 +86,19 @@ class Home extends React.Component {
       <React.Fragment>
         {this.state.prices ? (
           <React.Fragment>
-            <DisplayData {...this.state.prices} />
-            <BuyCoin
-              handleValue={this.handleValue}
+            <h4>Amount you have : {this.state.initialPrice}</h4>
+            <DisplayData title="Live Prices" data={this.state.prices} />
+            <Transaction
+              type="Buy"
+              handleBuy={this.handleBuy}
               data={Object.keys(this.state.prices)}
             />
-            <SellCoin
-              handleValue={this.handleValue}
+            <Transaction
+              type="Sell"
+              handleSell={this.handleSell}
               data={Object.keys(this.state.prices)}
             />
+            <DisplayData title="Holdings" data={this.state.holdings} />
           </React.Fragment>
         ) : (
           <h2>Error in Fetching Data</h2>
