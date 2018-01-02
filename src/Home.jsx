@@ -34,11 +34,15 @@ class Home extends React.Component {
     if (!quantity) {
       alert('Please fill a value');
     } else {
-      const gain =
-        this.state.initialPrice + this.state.prices[option] * quantity;
+      const gain = (
+        this.state.initialPrice +
+        this.state.prices[option] * quantity
+      ).toPrecision(6);
       let b = this.state.holdings;
       if (b[option] >= quantity) {
-        b[option] = (b[option] || 0) - parseFloat(quantity).toPrecision(2);
+        b[option] = (
+          (parseFloat(b[option]) || 0) - parseFloat(quantity)
+        ).toPrecision(6);
         this.setState({
           initialPrice: gain,
           holdings: b
@@ -53,11 +57,15 @@ class Home extends React.Component {
     if (!quantity) {
       alert('Please fill a value');
     } else {
-      const left =
-        this.state.initialPrice - this.state.prices[option] * quantity;
+      const left = (
+        this.state.initialPrice -
+        this.state.prices[option] * quantity
+      ).toPrecision(6);
       let a = this.state.holdings;
       if (left > 0) {
-        a[option] = (a[option] || 0) + parseFloat(quantity).toPrecision(2);
+        a[option] = (
+          (parseFloat(a[option]) || 0) + parseFloat(quantity)
+        ).toPrecision(6);
         this.setState({
           initialPrice: left,
           holdings: a
